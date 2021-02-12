@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Login with your Email and Password</h1>
+	<input id="email" type="text" />
+	<input id="password" type="text" />
+	<button onclick="login()">Login</button>
+
+</body>
+<script type="text/javascript">
+	function login() {
+
+		console.log("LOGIN");
+		let xhttp = new XMLHttpRequest();
+
+		xhttp.onreadystatechange = function() {
+			console.log(this.readyState);
+
+			if (this.readyState == 4 && this.status == 200)
+			{
+
+				console.log(this.responseText);
+				window.location.href = "http://localhost:8080/Project1/submitevent.html";
+
+			}
+			
+		}
+		xhttp.open("GET", "http://localhost:8080/Project1/login.do", true);
+
+		//Set a Request HEader which will indicate to the Server that the Request Body will be JSON
+		xhttp.setRequestHeader('Content-Type', 'application/json');
+
+		xhttp.send();
+
+	}
+</script>
+</html>

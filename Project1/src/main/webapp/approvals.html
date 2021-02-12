@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<table class="table">
+<thead>
+<tr><td>Form Id</td><td>Event Id</td><td>Employee Id</td><td>Date</td><td>Direct Supervisor Approval</td><td>Department Head Approval</td><td>Benefits Coordinator</td><td>Denial Message</td><td>Grade/Presentation</td><td>Grade Info</td><td>Approve/Deny</td></tr>
+</thead>
+<tbody id = "approvalTableBody">
+</tbody>
+</table>
+<button onclick="getEmployeeApprovalProgress()">Check out your forms!</button>
+<script>
+function getEmployeeApprovalProgress() {
+	
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+
+                approvalForms = JSON.parse(this.responseText);
+                console.log(approvalForms);
+            	
+                const tbody = document.getElementById("approvalTableBody");
+                
+                for (var i = 0; i < approvalForms.length; i++) {
+                    var aid = approvalForms[i].id;
+                    var avid = approvalForms[i].eventId;
+                    var amid = approvalForms[i].employeeId;
+                    var adate = approvalForms[i].date;
+                    var adsa = approvalForms[i].directSupervisorApproval;
+                    var adha = approvalForms[i].departmentHeadApproval;
+                    var abca = approvalForms[i].benCoApproval;
+                    var adm = approvalForms[i].denialMessage;
+                    var agpu = approvalForms[i].gradePresentationUpload;
+                    var agi = approvalForms[i].gradeInfo;
+
+                    let row = tbody.insertRow();
+                    let id = row.insertCell(0);
+                    id.innerHTML = aid;
+                    let currentEventId = row.insertCell(1);
+                    currentEventId.innerHTML = avid;
+                    let currentEmployeeId = row.insertCell(2);
+                    currentEmployeeId.innerHTML = amid;
+                    let datte = row.insertCell(3);
+                    datte.innerHTML = adate;
+                    let dha = row.insertCell(4);
+                    dha.innerHTML = adsa;
+                    let type = row.insertCell(5);
+                    type.innerHTML = adha;
+                    let format = row.insertCell(6);
+                    format.innerHTML = abca;
+                    let justify = row.insertCell(7);
+                    justify.innerHTML = adm;
+                    let urgent = row.insertCell(8);
+                    urgent.innerHTML = agpu;
+                    let approvalId = row.insertCell(9);
+                    approvalId.innerHTML = agi;
+                    let abtn = row.insertCell(10);
+                    abtn.innerHTML = "<button onclick='approve(this.parentElement.parentElement)'class='btn btn-primary'>Approve</button> <button onclick='deny(this.parentElement.parentElement)' class='btn btn-primary'>Deny</button>"
+
+                }
+
+            }
+        }
+
+        xhttp.open("GET", "http://localhost:8080/Project1/getApprovalProgressByEmployeeId.do?id=1", true);
+        xhttp.send();
+    }
+</script>
+</body>
+</html>
