@@ -162,7 +162,7 @@ public class EmployeeDAOImp
 			String sql = "SELECT * FROM Employees WHERE supervisor_id = ?";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, sql);
+			ps.setString(1, Integer.toString(supervisorId));
 			
 			ResultSet rs = ps.executeQuery();
 			

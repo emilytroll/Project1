@@ -298,47 +298,7 @@ public class ApprovalProgressDAOImp
 		return null;	
 	}
 	
-	public ArrayList<ApprovalProgress> getApprovalProgressByDepartmentHeadIdAndStatus(int departmentId, int departmentHeadApprovalStatus)
-	{
-		try 
-		{
-			ArrayList<ApprovalProgress> apList = new ArrayList<ApprovalProgress>();
-			
-			String sql = "SELECT * FROM Approval_Progress WHERE employee_id = (SELECT employees.employee_id  FROM Employees WHERE department_id = ?) AND department_head_approval = ?;";
-			
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, Integer.toString(departmentId));
-			ps.setString(2, Integer.toString(departmentHeadApprovalStatus));
-			
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next())
-			{
-				ApprovalProgress ap = new ApprovalProgress();
 
-				ap.setId(rs.getInt("APPROVAL_ID"));
-				ap.setEventId(rs.getInt("EVENT_ID"));
-				ap.setEmployeeId(rs.getInt("EMPLOYEE_ID"));
-				ap.setDate(rs.getDate("APPROVAL_DATE"));
-				ap.setDirectSupervisorApproval(rs.getInt("DIRECT_SUPERVISOR_APPROVAL"));
-				ap.setDepartmentHeadApproval(rs.getInt("DEPARTMENT_HEAD_APPROVAL"));
-				ap.setBenCoApproval(rs.getInt("BEN_CO_APPROVAL"));
-				ap.setDenialMessage(rs.getString("DENIAL_MESSAGE"));
-				ap.setGradePresentationUpload(rs.getInt("GRADE_PRESENTATION_UPLOAD"));
-				ap.setGradeInfo(rs.getInt("GRADE_INFO"));
-				
-				apList.add(ap);
-			}
-			
-			return apList;
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-
-		return null;	
-	}
 	
 	public ArrayList<ApprovalProgress> getApprovalProgressByBenCoStatus(int benCoApprovalStatus)
 	{

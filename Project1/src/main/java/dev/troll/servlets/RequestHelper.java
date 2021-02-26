@@ -21,12 +21,9 @@ public class RequestHelper {
 	 * @throws IOException 
 	 */
 	public static void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		
-		System.out.println("PROCESS ?");
+
 		String uri = request.getRequestURI();
 		
-		System.out.println("HELLOOO! " + uri);
 		
 		switch (uri) {
 		
